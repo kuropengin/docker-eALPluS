@@ -1,0 +1,4 @@
+config/*.json
+!config/*.template
+logs/**/*.log
+logs/**/*.gz
