@@ -11,6 +11,7 @@ services:
     volumes:
       - ./logs:/eALPluS/logs
       - ./config:/eALPluS/config
+      - ./alert/alert.ejs:/eALPluS/views/common/alert.ejs
     environment:
       TZ: Asia/Tokyo
 
