@@ -1,0 +1,25 @@
+version: "3.1"
+
+services:
+  node:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    restart: always
+    ports:
+      - 3000:3000
+    volumes:
+      - ./logs:/eALPluS/logs
+      - ./config:/eALPluS/config
+    environment:
+      TZ: Asia/Tokyo
+
+  mongo:
+    image: mongo:4.4
+    restart: always
+    volumes:
+      - ./mongo:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: pass
+      MONGO_INITDB_DATABASE: auth
