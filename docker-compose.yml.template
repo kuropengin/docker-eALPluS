@@ -1,17 +1,27 @@
 version: "3.1"
 
 services:
-  node:
+  nginx:
+    image: nginx
+    restart: always
+    ports:
+      - 3000:80
+    environment:
+      - TZ=Asia/Tokyo
+    volumes:
+      - $PWD/nginx/templates:/etc/nginx/templates
+
+  ealplus:
     build:
       context: .
       dockerfile: ./Dockerfile
     restart: always
-    ports:
-      - 3000:3000
+    deploy:
+      replicas: 3
     volumes:
-      - ./logs:/eALPluS/logs
-      - ./config:/eALPluS/config
-      - ./alert/alert.ejs:/eALPluS/views/common/alert.ejs
+      - $PWD/logs:/eALPluS/logs
+      - $PWD/config:/eALPluS/config
+      - $PWD/alert/alert.ejs:/eALPluS/views/common/alert.ejs
     environment:
       TZ: Asia/Tokyo
 
@@ -19,7 +29,7 @@ services:
     image: mongo:4.4
     restart: always
     volumes:
-      - ./mongo:/data/db
+      - $PWD/mongo:/data/db
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: pass
